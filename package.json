@@ -1,0 +1,43 @@
+{
+  "name": "gbs",
+  "version": "0.0.0",
+  "description": "Simple and opinionated site for multiple gitbook books",
+  "main": "index.js",
+  "bin": {
+    "gbs": "./bin/gbs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniele Belardi <dnl.dwfa@gmail.com>",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "JSONStream": "^1.3.1",
+    "clustrfy": "0.0.0",
+    "conphy": "^2.0.3",
+    "express": "^4.15.3",
+    "express-winston": "^2.4.0",
+    "glob": "^7.1.2",
+    "helmet": "^3.6.1",
+    "i18n": "^0.8.3",
+    "install": "^0.10.1",
+    "isobject": "^3.0.0",
+    "node-memchecker": "git+https://git@github.com/dnlup/node-memchecker.git",
+    "pug": "^2.0.0-rc.1",
+    "shortid": "^2.2.8",
+    "winston": "^2.3.1"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "gitbook",
+    "site"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dnlup/gbs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dnlup/gbs/issues"
+  },
+  "homepage": "https://github.com/dnlup/gbs#readme"
+}

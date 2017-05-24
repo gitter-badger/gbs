@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+
+const gitbookSite = require('../')
+const clstrfy = require('clustrfy')
+
+let app = gitbookSite.create()
+
+clstrfy.clusterify(app)
