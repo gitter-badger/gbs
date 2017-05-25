@@ -24,6 +24,7 @@
     "isobject": "^3.0.0",
     "node-memchecker": "git+https://git@github.com/dnlup/node-memchecker.git",
     "pug": "^2.0.0-rc.1",
+    "serve-favicon": "^2.4.3",
     "shortid": "^2.2.8",
     "winston": "^2.3.1"
   },

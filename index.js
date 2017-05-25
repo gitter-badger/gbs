@@ -1,6 +1,7 @@
 'use strict'
 
 const express = require('express')
+const favicon = require('serve-favicon')
 const Conphy = require('conphy').Conphy
 const winston = require('winston')
 const expressWinston = require('express-winston')
@@ -20,6 +21,7 @@ const defaults = {
   'public-path': './public',
   'views-path': './views',
   'view-engine': 'pug',
+  favicon: false,
   locales: ['en', 'it'],
   'locales-path': './locales',
   env: process.env.NODE_ENV || 'development',
@@ -72,6 +74,7 @@ class GitbookSite {
     this._app._pdfPath = options['pdf-path']
     this._app._publicPath = options['public-path']
     options.locales && (this._app.localesPath = options['locales-path'])
+    options.favicon && this._app.use(favicon(path.resolve(options.favicon)))
     options.locales && this._app.use(i18n.init)
     this._app.use(helmet())
     this._app.use(express.static(path.resolve(this._app._publicPath)))
