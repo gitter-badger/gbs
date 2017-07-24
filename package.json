@@ -1,13 +1,14 @@
 {
   "name": "gbs",
-  "version": "0.0.0",
+  "version": "1.0.0-alpha.0",
   "description": "Simple and opinionated site for multiple gitbook books",
   "main": "index.js",
   "bin": {
     "gbs": "./bin/gbs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "changelog": "conventional-changelog -i CHANGELOG.md -s"
   },
   "author": "Daniele Belardi <dnl.dwfa@gmail.com>",
   "license": "AGPL-3.0",
