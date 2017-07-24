@@ -21,6 +21,7 @@ const defaults = {
   'public-path': './public',
   'views-path': './views',
   'view-engine': 'pug',
+  'root-url': '/',
   favicon: false,
   locales: ['en', 'it'],
   'locales-path': './locales',
@@ -60,6 +61,13 @@ class GitbookSite {
       writable: false,
       value: options.port
     })
+    Object.defineProperty(this, '_rootUrl', {
+      enumerable: false,
+      configurable: false,
+      writable: false,
+      value: options['root-url']
+    })
+    console.log(options)
     this._app = express()
     this._app.locals.title = this.name
     this._app.set('env', options.env)
@@ -95,9 +103,30 @@ class GitbookSite {
         })
       }
 
+      function _parseBookInfo (data) {
+        let info = {}
+        info.versions = data.pluginsConfig.versions.options
+        return info
+      }
+
       _getBookJson((err, data) => {
         if (err) return next(err)
-        res.render('index', { bookJson: data })
+        res.format({
+          html: function () {
+            res.render('index', {
+              rootUrl: self._rootUrl,
+              bookJson: data
+            })
+          },
+          json: function () {
+            let info = _parseBookInfo(data)
+            res.json({ bookJson: info })
+          },
+          default: function () {
+            let info = _parseBookInfo(data)
+            res.type('txt').send(JSON.stringify({ bookJson: info }, null, '\t'))
+          }
+        })
       })
     })
 
@@ -125,13 +154,45 @@ class GitbookSite {
     })
 
     /** error handler */
-    this._app.use(function (err, req, res, next) {
-      res.status(err.status || 500)
-      res.json({
-        error: {
-          status: res.status,
-          message: err.message,
-          error: req.app.get('env') === 'development' ? err : {}
+    this._app.use((err, req, res, next) => {
+      let status = err.status || 500
+      let self = this
+      res.status(status)
+      res.format({
+        html: function () {
+          switch (status) {
+            case 404:
+              res.render('404', {
+                rootUrl: self._rootUrl,
+                error: {
+                  status: status,
+                  message: err.message,
+                  error: req.app.get('env') === 'development' ? err : {}
+                }
+              })
+              break
+            default:
+              res.render('500', {
+                rootUrl: self._rootUrl,
+                error: {
+                  status: status,
+                  message: err.message,
+                  error: req.app.get('env') === 'development' ? err : {}
+                }
+              })
+          }
+        },
+        json: function () {
+          res.json({
+            error: {
+              status: status,
+              message: err.message,
+              error: req.app.get('env') === 'development' ? err : {}
+            }
+          })
+        },
+        default: function () {
+          res.type('txt').send(err.message)
         }
       })
     })
