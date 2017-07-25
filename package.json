@@ -7,8 +7,11 @@
     "gbs": "./bin/gbs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "changelog": "conventional-changelog -i CHANGELOG.md -s"
+    "test": "nsp check",
+    "lint": "eslint ./index.js tests",
+    "changelog": "conventional-changelog -i CHANGELOG.md -s",
+    "docs-watch": "grunt docs; grunt docswatch",
+    "docs": "grunt docs"
   },
   "author": "Daniele Belardi <dnl.dwfa@gmail.com>",
   "license": "AGPL-3.0",
@@ -29,7 +32,23 @@
     "shortid": "^2.2.8",
     "winston": "^2.3.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-node": "^4.2.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "grunt": "^1.0.1",
+    "grunt-apidoc": "^0.11.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-jsdoc": "^2.1.0",
+    "grunt-mocha-istanbul": "^5.0.2",
+    "istanbul": "^0.4.5",
+    "minami": "^1.1.1",
+    "mocha": "^3.2.0",
+    "nsp": "^2.6.3"
+  },
   "keywords": [
     "gitbook",
     "site"
