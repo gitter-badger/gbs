@@ -82,7 +82,7 @@ class GitbookSite {
     this._app.use(express.static(path.resolve(this._app._publicPath)))
     this._app.use(expressWinston.logger(options))
 
-    this._app.get('/', (req, res, next) => {
+    this._app.get(`${this._rootUrl}`, (req, res, next) => {
       let self = this
       function _getBookJson (cb) {
         let content
@@ -124,7 +124,7 @@ class GitbookSite {
       })
     })
 
-    this._app.get('/pdf/:release/:lang', (req, res, next) => {
+    this._app.get(`${this._rootUrl}pdf/:release/:lang`, (req, res, next) => {
       let options = {
         cwd: this._app._pdfPath,
         absolute: true
