@@ -1,3 +1,9 @@
+/**
+ *
+ * An opinionated server for a static gitbook site.
+ * __Work in progress__
+ * @module gbs
+ */
 'use strict'
 
 const express = require('express')
@@ -15,24 +21,12 @@ const fs = require('fs')
 const JSONStream = require('JSONStream')
 const i18n = require('i18n')
 
-const defaults = {
-  gitbookSiteName: process.env.BOOK_NAME || 'Book',
-  'pdf-path': './pdf',
-  'public-path': './public',
-  'views-path': './views',
-  'view-engine': 'pug',
-  'root-url': '/',
-  favicon: false,
-  locales: ['en', 'it'],
-  'locales-path': './locales',
-  env: process.env.NODE_ENV || 'development',
-  port: process.env.PORT || 8080,
-  logger: {
-    level: (process.env.NODE_ENV || 'development') === 'development' ? 'debug' : 'info',
-    transports: []
-  }
-}
+const defaults = require('./config/default')
 
+/**
+ * The site app.
+ * @type {GitbookSite}
+ */
 class GitbookSite {
   constructor (options) {
     this._conphy = new Conphy({
